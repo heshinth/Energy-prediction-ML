@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Energy Consumption Prediction</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #1e1e1e;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+      }
+
+      h1,
+      h2 {
+        color: #bb86fc;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input,
+      select,
+      button {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #444;
+        border-radius: 4px;
+        background-color: #333;
+        color: #e0e0e0;
+      }
+
+      input::placeholder {
+        color: #bbb;
+      }
+
+      button {
+        background-color: #bb86fc;
+        color: #121212;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #9c67db;
+      }
+
+      .error {
+        color: #cf6679;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          margin: 20px;
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Model Evaluation Metrics</h2>
+      <p>Mean Squared Error: {{ mse }}</p>
+      <p>Model Score: {{ score }}</p>
+
+      <h1>Energy Consumption Prediction</h1>
+      <form method="POST">
+        <label for="temperature">Temperature (°C):</label>
+        <input
+          type="number"
+          id="temperature"
+          name="temperature"
+          step="0.1"
+          required
+          placeholder="Enter temperature"
+        />
+
+        <label for="humidity">Humidity (%):</label>
+        <input
+          type="number"
+          id="humidity"
+          name="humidity"
+          step="0.1"
+          required
+          placeholder="Enter humidity"
+        />
+
+        <label for="square_footage">Square Footage:</label>
+        <input
+          type="number"
+          id="square_footage"
+          name="square_footage"
+          required
+          placeholder="Enter square footage"
+        />
+
+        <label for="occupancy">Occupancy:</label>
+        <input
+          type="number"
+          id="occupancy"
+          name="occupancy"
+          required
+          placeholder="Enter occupancy"
+        />
+
+        <label for="hvac_usage">HVAC Usage:</label>
+        <select id="hvac_usage" name="hvac_usage" required>
+          <option value="On">On</option>
+          <option value="Off">Off</option>
+        </select>
+
+        <label for="lighting_usage">Lighting Usage:</label>
+        <select id="lighting_usage" name="lighting_usage" required>
+          <option value="On">On</option>
+          <option value="Off">Off</option>
+        </select>
+
+        <button type="submit">Predict</button>
+        <button type="reset">Clear</button>
+      </form>
+
+      {% if energy_usage %}
+      <h2>Predicted Energy Consumption: {{ energy_usage }}</h2>
+      {% endif %} {% if error %}
+      <p class="error">{{ error }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
